@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={ <Navigate to={"/login"} replace={true}/> }>  </Route>
 
           <Route path="login" element={ <LoginComponent> </LoginComponent>}>  </Route>
-          <Route path="pages" element={  <PagesComponent> </PagesComponent>}>  </Route>
+          <Route path="pages/*" element={  <PagesComponent> </PagesComponent>}>  </Route>
        
         </Routes>
      
