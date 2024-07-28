@@ -29,6 +29,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 import Collapse from '@mui/material/Collapse';
+import { CategoryComponent} from './Catogery/CatogeryComponent';
 const drawerWidth = 240;
 
 
@@ -124,7 +125,7 @@ export function PagesComponent() {
               {obj.isCollapsable && <Collapse in={menuOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   {obj.children.map(child => {
-                    return <ListItemButton sx={{ pl: 4 }} onClick={() => navigate(child.route)}>
+                    return <ListItemButton sx={{ pl: 4 }} key={child.title} onClick={() => navigate(child.route)}>
                       <ListItemIcon>
                         {child.icon}
                       </ListItemIcon>
@@ -140,13 +141,12 @@ export function PagesComponent() {
       <Main open={open}>
         <DrawerHeader />
         <div>
-          Main Content
           <Routes>
             <Route path="/" element={<Navigate to={"dashboard"} replace={true} />}></Route>
 
             <Route path="dashboard" element={<div> Dashboard Page</div>}></Route>
-            <Route path="catogeries" element={<div> Catogeries Page</div>}></Route>
-            <Route path="products" element={<div> Products Page</div>}></Route>
+            <Route path="categories/*" element={<CategoryComponent> </CategoryComponent>}> </Route>
+            <Route path="products" element={<div> Products Page</div>}> </Route>
             <Route path="orders" element={<div> Orders Page</div>}></Route>
             <Route path="users" element={<div> Users Page</div>}></Route>
 
