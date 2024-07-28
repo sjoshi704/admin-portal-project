@@ -25,12 +25,17 @@ import PeopleIcon from '@mui/icons-material/People';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
+import Collapse from '@mui/material/Collapse';
 const drawerWidth = 240;
 
 
 
 export function PagesComponent() {
   const [open, setOpen] = React.useState(true);
+  const [menuOpen, setMenuOpen] = React.useState(true);
   const theme = useTheme();
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -40,10 +45,10 @@ export function PagesComponent() {
     setOpen(false);
   };
 
-  const navigate=useNavigate()
-  const isAuthenticated =useAuth()
-  useEffect(()=>{
-    
+  const navigate = useNavigate()
+  const isAuthenticated = useAuth()
+  useEffect(() => {
+
     // if(!isAuthenticated){
     //   navigate('/login')
     // }
@@ -70,7 +75,7 @@ export function PagesComponent() {
       </AppBar>
       <Drawer
         sx={{
-          width: open ? drawerWidth:0 ,
+          width: open ? drawerWidth : 0,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
@@ -89,39 +94,63 @@ export function PagesComponent() {
         <Divider />
         <List>
           {[
-            {title:'Dashboard',route:'dashboard',icons:<DashboardIcon/>},
-            {title:'Catogeries',route:'catogeries',icons:<MoveToInboxIcon/>},
-            {title:'Products',route:'products',icons:<InventoryIcon/>},
-            {title:'Orders',route:'orders',icons:<ShoppingCartIcon/>},
-            {title:'Users',route:'users',icons:<PeopleIcon/>}
+            { title: 'Dashboard', route: 'dashboard', icons: <DashboardIcon /> },
+            {
+              title: 'Categories', route: 'categories', icon: <InboxIcon />, isCollapsable: true,
+              children: [
+                { title: 'Main Categories', route: 'categories/main-categories', icon: <DashboardIcon /> },
+                { title: 'Sub Categories', route: 'categories/sub-categories', icon: <DashboardIcon /> }
+              ]
+            },
+            { title: 'Products', route: 'products', icons: <InventoryIcon /> },
+            { title: 'Orders', route: 'orders', icons: <ShoppingCartIcon /> },
+            { title: 'Users', route: 'users', icons: <PeopleIcon /> }
           ].map((obj, index) => (
-            <ListItem key={obj.title} disablePadding onClick={()=>{
-              navigate(obj.route)
-            }}>
-              <ListItemButton>
+            <React.Fragment key={obj.title}>
+              <ListItemButton onClick={() => {
+                navigate(obj.route)
+                if (obj.isCollapsable) {
+                  setMenuOpen(!menuOpen)
+                }
+              }}>
                 <ListItemIcon>
-                  {obj.icons}
+                  {obj.icon}
                 </ListItemIcon>
                 <ListItemText primary={obj.title} />
+                {obj.isCollapsable && <>
+                  {menuOpen ? <ExpandLess /> : <ExpandMore />}
+                </>}
               </ListItemButton>
-            </ListItem>
+              {obj.isCollapsable && <Collapse in={menuOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {obj.children.map(child => {
+                    return <ListItemButton sx={{ pl: 4 }} onClick={() => navigate(child.route)}>
+                      <ListItemIcon>
+                        {child.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={child.title} />
+                    </ListItemButton>
+                  })}
+                </List>
+              </Collapse>}
+            </React.Fragment>
           ))}
-        </List>  
+        </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-       <div>
-        Main Content
-        <Routes>
-        <Route path="/" element={<Navigate to={"dashboard"} replace={true} />}></Route>
-         
-          <Route path="dashboard" element={<div> Dashboard Page</div>}></Route>
-          <Route path="catogeries" element={<div> Catogeries Page</div>}></Route>
-          <Route path="products" element={<div> Products Page</div>}></Route>
-          <Route path="orders" element={<div> Orders Page</div>}></Route>
-          <Route path="users" element={<div> Users Page</div>}></Route>
+        <div>
+          Main Content
+          <Routes>
+            <Route path="/" element={<Navigate to={"dashboard"} replace={true} />}></Route>
 
-        </Routes>
+            <Route path="dashboard" element={<div> Dashboard Page</div>}></Route>
+            <Route path="catogeries" element={<div> Catogeries Page</div>}></Route>
+            <Route path="products" element={<div> Products Page</div>}></Route>
+            <Route path="orders" element={<div> Orders Page</div>}></Route>
+            <Route path="users" element={<div> Users Page</div>}></Route>
+
+          </Routes>
         </div>
       </Main>
     </Box></div>
