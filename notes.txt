@@ -1,0 +1,5 @@
+to create json server
+npx json-server db.json
+
+tochange the port of the server:
+npx json-server db.json --port 3001

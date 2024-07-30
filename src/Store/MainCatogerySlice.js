@@ -2,35 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const MainCatogerySlice = createSlice({
     name: "MainCatogery",
-    initialState: [
-        {
-            id: 1,
-            name: "Footwear",
-            createdAt: new Date().toISOString(),
-            description: "A variety of footwear including shoes, sandals, and boots for all occasions."
-          },
-          {
-            id: 2,
-            name: "Books",
-            createdAt: new Date().toISOString(),
-            description: "A collection of books across different genres including fiction, non-fiction, and educational materials."
-          },
-          {
-            id: 3,
-            name: "Electronics",
-            createdAt: new Date().toISOString(),
-            description: "Latest electronics including smartphones, laptops, and home appliances."
-          },
-          {
-            id: 4,
-            name: "Clothing",
-            createdAt: new Date().toISOString(),
-            description: "Fashionable clothing for men, women, and children, suitable for various seasons and occasions."
-          }
-    ],
+    initialState: [],
     reducers: {
         setMainCatogery: (state, action) => {
-            state = action.payload
+          console.log("Action=>"+action);
+          console.log("State=>"+state);
+            state = action.payload;
+            return state
         }
     }
 })

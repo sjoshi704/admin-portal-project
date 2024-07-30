@@ -7,6 +7,7 @@ import { PagesComponent } from './Pages/PagesComponent';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import useAuth from './CustomHooks/UseAuth';
 
+
 function App() {
   const isAuthenticated =useAuth()
   console.log(isAuthenticated)
