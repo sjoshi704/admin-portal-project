@@ -28,6 +28,21 @@
       "name": "Sports",
       "createdAt": "2024-03-14T09:30:00Z",
       "description": "Gear up for your favorite sports"
+    },
+    {
+      "id": "6",
+      "name": "Electronics",
+      "description": "Explore a wide range of electronic items"
+    },
+    {
+      "id": 86,
+      "name": "mens Clothing",
+      "description": "jeans,Tshirts"
+    },
+    {
+      "id": 80,
+      "name": "Womens Clothing",
+      "description": "Tops,One Piece,"
     }
   ],
   "subCategories": [

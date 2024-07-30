@@ -6,6 +6,7 @@ export const SubCatogerySlice=createSlice({
     reducers:{
         setSubCatogery:(state,action)=>{
             state=action.payload
+            return state;
         }
     }
 })
